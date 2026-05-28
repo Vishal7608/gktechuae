@@ -12,6 +12,15 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+// TEST ROUTE
+router.get('/test', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: '🚀 API is working successfully',
+    serverTime: new Date(),
+  });
+});
+
 router.post('/inquiries', async (req, res) => {
   try {
     console.log("Frontend se aaya hua raw data:", req.body);
