@@ -1,9 +1,12 @@
+
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 
-// db.js ko import kiya
+// Database connection
 const connectDB = require('./config/db');
+
+// Routes
 const inquiryRoutes = require('./routes/inquiryRoutes');
 
 const app = express();
@@ -12,13 +15,20 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Database se connect kiya (Call the function)
+// Connect Database
 connectDB();
 
-// Routes
+// Root Route
+app.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: '🚀 Backend Running Successfully'
+  });
+});
+
+// API Routes
 app.use('/api', inquiryRoutes);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Export app for Vercel
+module.exports = app;
+
